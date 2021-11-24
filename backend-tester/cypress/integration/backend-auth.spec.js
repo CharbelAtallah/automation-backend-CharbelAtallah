@@ -1,13 +1,6 @@
 /// <reference types="cypress" />
 
-//curl 'http://localhost:3000/api/login' 
-//-H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:88.0) Gecko/20100101 Firefox/88.0' 
-//-H 'Accept: application/json' 
-//-H 'Accept-Language: sv-SE,sv;q=0.8,en-US;q=0.5,en;q=0.3' 
-//--compressed -H 'Referer: http://localhost:3000/login' 
-//-H 'Content-Type: application/json;charset=UTF-8' 
-//-H 'Origin: http://localhost:3000/' -H 'Connection: keep-alive' 
-//--data-raw '{"username":"tester01","password":"GteteqbQQgSr88SwNExUQv2ydb7xuf8c"}'
+import * as roomHelpers from '../helpers/roomHelpers'
 
 describe('testing auth', function(){
 
@@ -55,6 +48,40 @@ cy.request({
             }).then((response =>{
                 const responseAsString=JSON.stringify(response)
                 expect(responseAsString).to.have.string(payload.floor)
+            }))
+        }))
+    })
+
+    it.only('test case 2 - Create a room', function(){
+        cy.authenticateSession().then((response =>{
+            let fakeRoomPayload = roomHelpers.createRandomRoomPayload()
+
+            //Post request to create a room
+            cy.request({
+                method: "POST",
+                url: 'http://localhost:3000/api/room/new',
+                headers:{
+                    'X-User-Auth': JSON.stringify(Cypress.env().loginToken),
+                    'Content-Type': 'application/json'
+                },
+                body:fakeRoomPayload
+            }).then((response =>{
+                const responseAsString=JSON.stringify(response)
+                expect(responseAsString).to.have.string(fakeRoomPayload.floor)
+            }))
+
+            //GET request to fetch all rooms
+            cy.request({
+                method: "GET",
+                url: 'http://localhost:3000/api/rooms',
+                headers:{
+                    'X-User-Auth': JSON.stringify(Cypress.env().loginToken),
+                    'Content-Type': 'application/json'
+                },
+            }).then((response =>{
+                const responseAsString = JSON.stringify(response)
+                expect(responseAsString).to.have.string(fakeRoomPayload.number)
+                expect(responseAsString).to.have.string(fakeRoomPayload.floor)
             }))
         }))
     })
