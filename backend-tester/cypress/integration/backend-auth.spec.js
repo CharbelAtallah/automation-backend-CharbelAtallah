@@ -25,7 +25,7 @@ describe('testing auth', function(){
         billHelpers.createBillRequest(cy)
     })
 
-    it('test case 5 - Create a bill and delete', function(){
+    it.only('test case 5 - Create a bill and delete', function(){
             createDelHelpersBill.createAndDeleteBill(cy)
     })
 

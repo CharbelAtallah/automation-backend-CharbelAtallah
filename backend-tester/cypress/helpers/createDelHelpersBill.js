@@ -8,7 +8,7 @@ function createRandomBillPayload(){
     const fakeValue = faker.finance.account()
     const billPayload={
         "value":fakeValue,
-        "paid":true,
+        "paid":false
     }
     return billPayload
 }
@@ -26,8 +26,8 @@ function createRandomBillPayload(){
                 },
                 body:billPayload
             }).then((response=>{
-                const responseString=JSON.stringify(response.body)
-                expect(responseString).to.have.string(billPayload.value)
+                const responseString=JSON.stringify(response.body) 
+                expect(responseString).to.have.string(billPayload.paid)
             }))
     }
     // Get all bills
