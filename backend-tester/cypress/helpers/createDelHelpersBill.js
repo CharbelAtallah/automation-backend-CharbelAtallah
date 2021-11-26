@@ -8,7 +8,7 @@ function createRandomBillPayload(){
     const fakeValue = faker.finance.account()
     const billPayload={
         "value":fakeValue,
-        //"paid":true,
+        "paid":true,
     }
     return billPayload
 }

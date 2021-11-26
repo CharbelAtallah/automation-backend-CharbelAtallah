@@ -26,7 +26,7 @@ function getRequestBillAssertion(cy,value){
     }))
     
 }
-//Test case 2
+//Test case 4
 function createBillRequest(cy){
     cy.authenticateSession().then((response =>{
         let fakeBillPayload = createRandomBillPayload()
