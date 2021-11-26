@@ -6,7 +6,8 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --reporter mochawesome",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress open",
+    "test:report":"cypress run --reporter mochawesome"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,9 @@
     "cypress": "^8.7.0"
   },
   "dependencies": {
-    "faker": "^5.5.3"
+    "faker": "^5.5.3",
+    "mocha": "^7.0.1",
+    "mochawesome": "^7.0.1",
+    "mochawesome-merge": "^4.2.0"
   }
 }
